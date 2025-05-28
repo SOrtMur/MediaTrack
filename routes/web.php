@@ -7,4 +7,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/demo', [DemoController::class, 'demo'])->name('demo');
+Route::get('/demo', [DemoController::class, 'demoIndex'])->name('demo');
+Route::get('/demo/{id}', [DemoController::class, 'demoShow'])->name('demo.show');

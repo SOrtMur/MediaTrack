@@ -24,10 +24,9 @@
             <div class="popular-movie">
                 <h2 class="capitalize text-white text-lg font-semibold">Popular Movie</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3">
-
-                    @foreach ($movies as $movie)
+                        
                         <div class="mt-8 relative">
-                            <a href="{{ route('demo.show',$movie['id']) }}">
+                            <a href="{{ $movie['id'] }}">
                                 <img src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}" class="hover:opacity-50 transition ease-in-out duration-150 rounded-lg"/>
                             </a>
                             <span class="ml-3 mt-3 border-2 border-yellow-500 rounded-full w-8 h-8 text-center absolute top-0 left-0 text-white font-semibold text-sm flex justify-center items-center">
@@ -40,7 +39,6 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
                 </div>                  
             </div>
 

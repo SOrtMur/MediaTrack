@@ -12,14 +12,40 @@ class DemoController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function demo()
+    public function demoIndex()
     {
-        $tmdb_id = 436270; // Example TMDB ID
+        //Recuperar datos de TMDB con query 'ca', solo lee la primera página
+        $resp = Http::get(config('services.tmdb.endpoint'). 'search/movie?query=ca&include_adult=false&language=en-US', [
+                'api_key' => config('services.tmdb.api'),
+                'query' => 'Jungla de Cristal',
+                'language' => 'es-ES',
+                'include_adult' => false,
 
-        $movie = Http::asJson()
-            ->get(config('services.tmdb.endpoint').'movie/'.$tmdb_id.'?api_key='.config('services.tmdb.key'));
-        
-    
-        return view('demo', compact('movie'));
+            ])->collect();
+
+        // Asignar los resultados a la variable $movies
+        $movies = $resp['results'];
+
+
+
+        return view('demo', compact('movies'));
+    }
+    /**
+     * Display a demo view with a specific movie.
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
+    public function demoShow(string $id){
+        // Recuperar datos de TMDB para una película específica
+        $resp = Http::get(config('services.tmdb.endpoint') . 'movie/' . $id, [
+            'api_key' => config('services.tmdb.api'),
+            'language' => 'es-ES',
+        ])->collect();
+
+        // Asignar los resultados a la variable $movie
+        $movie = $resp;
+
+        return view('demo_show', compact('movie'));
     }
 }
