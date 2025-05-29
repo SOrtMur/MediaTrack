@@ -33,6 +33,7 @@ class GameController extends Controller
             'id' => 'required|unique:games',
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
+            'platforms' => 'required|array',
         ]);
 
         // Create a new game instance and save it
@@ -40,6 +41,7 @@ class GameController extends Controller
             'id' => $request->id,
             'title' => $request->title,
             'release_date' => $request->release_date,
+            'platforms' => json_encode($request->platforms),
             'avg_rate' => $request->avg_rate ?? null,
         ]);
 
@@ -74,12 +76,14 @@ class GameController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
+            'platforms' => 'required|array',
         ]);
 
         $game = Game::find($id);
         $game->update([
             'title' => $request->title,
             'release_date' => $request->release_date,
+            'platforms' => json_encode($request->platforms),
             'avg_rate' => $request->avg_rate ?? null,
         ]);
 
