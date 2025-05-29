@@ -28,7 +28,6 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'id' => 'required|unique:games',
             'title' => 'required|string|max:255',
@@ -36,7 +35,6 @@ class GameController extends Controller
             'platforms' => 'required|array',
         ]);
 
-        // Create a new game instance and save it
         Game::create([
             'id' => $request->id,
             'title' => $request->title,
@@ -72,7 +70,6 @@ class GameController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Validate the request data
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',

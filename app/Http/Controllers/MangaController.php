@@ -29,7 +29,6 @@ class MangaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'id' => 'required|unique:mangas',
             'title' => 'required|string|max:255',
@@ -38,7 +37,6 @@ class MangaController extends Controller
             'chapters' => 'required|integer|min:1'
         ]);
 
-        // Create a new manga instance and save it
         Manga::create([
             'id' => $request->id,
             'title' => $request->title,
@@ -78,7 +76,6 @@ class MangaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Validate the request data
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
