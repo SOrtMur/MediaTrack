@@ -11,7 +11,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all();
+        //return view('movies.index', ['header' => "Películas"], compact('movies')); No implementado
     }
 
     /**
@@ -19,7 +20,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        //return view('movies.create', ['header' => "Crear Película"]); No implementado
     }
 
     /**
@@ -27,7 +28,24 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data de id, title, duration and release_date
+        $request->validate([
+            'id' => 'required|unique:movies',
+            'title' => 'required|string|max:255',
+            'duration' => 'required|integer|min:1',
+            'release_date' => 'required|date',
+        ]);
+        // Create a new movie instance and save it
+        Movie::create([
+            'id' => $request->id,
+            'title' => $request->title,
+            'duration' => $request->duration,
+            'release_date' => $request->release_date,
+            'avg_rate' => $request->avg_rate ?? null,
+            'img_path' => $request->img_path ?? null,
+        ]);
+
+        //return redirect()->route('movies.index'); No implementado
     }
 
     /**
@@ -35,7 +53,9 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $movie = Movie::find($id);
+        
+        //return view('movies.show', ['header' => $movie->title, 'movie' => $movie]); No implementado
     }
 
     /**
@@ -43,7 +63,9 @@ class MovieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $movie = Movie::find($id);
+        
+        //return view('movies.edit', ['header' => "Editar Película", 'movie' => $movie]); No implementado
     }
 
     /**
@@ -51,7 +73,22 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'duration' => 'required|integer|min:1',
+            'release_date' => 'required|date',
+            'avg_rate' => 'nullable|numeric|min:0|max:10',
+        ]);
+
+        $movie = Movie::find($id);
+
+        $movie->update([
+            'title' => $request->title,
+            'duration' => $request->duration,
+            'release_date' => $request->release_date,
+            'avg_rate' => $request->avg_rate ?? $movie->avg_rate,
+            'img_path' => $request->img_path ?? $movie->img_path,
+        ]);
     }
 
     /**
@@ -59,6 +96,8 @@ class MovieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $movie = Movie::destroy($id);
+        
+        //return redirect()->route('movies.index'); No implementado
     }
 }
