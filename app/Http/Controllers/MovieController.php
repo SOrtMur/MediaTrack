@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Movie;
 
 class MovieController extends Controller
 {
@@ -12,7 +13,7 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::all();
-        //return view('movies.index', ['header' => "Películas"], compact('movies')); No implementado
+        return view('movies', ['header' => "index"], compact('movies'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //return view('movies.create', ['header' => "Crear Película"]); No implementado
+        return view('movies', ['header' => "create"]);
     }
 
     /**
@@ -30,22 +31,21 @@ class MovieController extends Controller
     {
         // Validate the request data de id, title, duration and release_date
         $request->validate([
-            'id' => 'required|unique:movies',
             'title' => 'required|string|max:255',
             'duration' => 'required|integer|min:1',
             'release_date' => 'required|date',
         ]);
         // Create a new movie instance and save it
         Movie::create([
-            'id' => $request->id,
             'title' => $request->title,
+            'description' => $request->description,
             'duration' => $request->duration,
             'release_date' => $request->release_date,
             'avg_rate' => $request->avg_rate ?? null,
-            'img_path' => $request->img_path ?? null,
+            'img_path' => $request->img_path ?? "https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.jpg",
         ]);
 
-        //return redirect()->route('movies.index'); No implementado
+        return redirect()->route('movie.index');
     }
 
     /**
@@ -55,7 +55,7 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
         
-        //return view('movies.show', ['header' => $movie->title, 'movie' => $movie]); No implementado
+        return view('movies', ['header' => "show",'movie' => $movie]);
     }
 
     /**
@@ -98,6 +98,6 @@ class MovieController extends Controller
     {
         $movie = Movie::destroy($id);
         
-        //return redirect()->route('movies.index'); No implementado
+        return redirect()->route('movie.index');
     }
 }
