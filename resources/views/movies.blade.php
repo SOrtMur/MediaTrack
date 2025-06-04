@@ -103,6 +103,43 @@
         @case(str_contains($header, "edit"))
             <h1>Editar Película</h1>
             {{-- Formulario de edicion de pelicula --}}
-            @break
+            <div class="container mx-auto px-4 py-8 mt-4">
+                <div class="flex-row justify-center">
+                    <form action="{{ route('movie.update', $movie->id) }}" method="POST" class="basis-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-4">
+                            <label for="title" class="block text-md font-medium text-gray-700 dark:text-gray-300">Título</label>
+                            <input type="text" name="title" id="title" value="{{ $movie->title }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="release_date" class="block text-md font-medium text-gray-700 dark:text-gray-300">Fecha de estreno</label>
+                            <input type="date" name="release_date" id="release_date" value="{{ $movie->release_date }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="description" class="block text-md font-medium text-gray-700 dark:text-gray-300">Descripción</label>
+                            <textarea name="description" id="description" rows="4" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ $movie->description }}</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="img_path" class="block text-md font-medium text-gray-700 dark:text-gray-300">URL Imagen</label>
+                            <input type="url" name="img_path" id="img_path" value="{{ $movie->img_path }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="duration" class="block text-md font-medium text-gray-700 dark:text-gray-300">Duración (minutos)</label>
+                            <input type="number" name="duration" id="duration" value="{{ $movie->duration }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
+                            <input type="number" name="avg_rate" id="avg_rate" step="0.1" min="0" max="10" value="{{ $movie->avg_rate }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Editar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @break
     @endswitch
 @endsection
