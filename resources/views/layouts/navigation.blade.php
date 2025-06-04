@@ -16,6 +16,29 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                {{-- Aplicar restricciones de admin para evitar acceso a usuario a un usuario comun o manager. No implementado middleware de rol--}}
+                {{-- @if (Auth::user()->hasRole('admin'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                    </div>
+                @endif --}}
+                {{-- Añadir nav items para Animes, Juegos, Mangas, Peliculas  --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('anime.index')" :active="request()->routeIs('anime.*')">
+                        {{ __('Animes') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('game.index')" :active="request()->routeIs('game.*')">
+                        {{ __('Juegos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('manga.index')" :active="request()->routeIs('manga.*')">
+                        {{ __('Mangas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.*')">
+                        {{ __('Peliculas') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

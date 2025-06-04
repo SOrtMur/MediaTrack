@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\ProfileController;
-
-
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\MangaController;
+use App\Http\Controllers\GameController;
 
 
 Route::get('/', function () {
@@ -21,8 +23,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('usuario', UserController::class)->names('user');
+Route::resource('pelicula', MovieController::class)->names('movie');
+Route::resource('anime', AnimeController::class)->names('anime');
+Route::resource('manga', MangaController::class)->names('manga');
+Route::resource('juego', GameController::class)->names('game');
+
+
 Route::get('/demo', [DemoController::class, 'demoIndex'])->name('demo');
 Route::get('/demo/{id}', [DemoController::class, 'demoShow'])->name('demo.show');
-
 
 require __DIR__.'/auth.php';
