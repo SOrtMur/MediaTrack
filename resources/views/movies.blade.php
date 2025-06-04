@@ -25,10 +25,10 @@
                         Añadir Película
                     </a>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-md md:max-w-2xl mx-auto lg:max-w-full py-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-md md:max-w-xl lg:max-w-full py-3">
                     @foreach ($movies as $movie)
-                        <div class=" flex flex-col justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4 mx-auto">
-                            <img src="{{ $movie->img_path }}" alt="{{ $movie->title }}" class="rounded-md mb-4" width="340px" height="200px">
+                        <div class=" flex flex-col justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4 mx-auto object-contain">
+                            <img src="{{ $movie->img_path  }}" alt="{{ $movie->title }}" class="rounded-md mb-4" width="340px" height="200px">
                             <div class="flex justify-center mb-2">
                                 <h2 class="text-lg font-semibold text-white">{{ $movie->title }}</h2>
                             </div>
@@ -50,9 +50,9 @@
             <div class="container mx-auto px-4 py-8 mt-4 ">
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
                     <h2 class="text-2xl text-white font-bold text-center">{{ $movie->title }}</h2>
-                    <div class="mt-4 flex gap-4 flex-nowrap">
-                        <img src="{{ $movie->img_path }}" alt="{{ $movie->title }}" class="object-cover rounded-md mb-4" width="520px" height="300px">
-                        <div class="flex flex-col justify-center">
+                    <div class="mt-4 flex gap-4 justify-center items-center max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+                        <img src="{{ $movie->img_path }}" alt="{{ $movie->title }}" class="object-contain rounded-md mb-4" width="50%" height="auto">
+                        <div class="flex flex-col justify-center text-md md:text-base lg:text-xl">
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Fecha de estreno: </span>{{ date('d M Y', strtotime($movie->release_date)) }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Descripción: </span>{{ $movie->description }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Valoración media: </span>{{ $movie->avg_rate }}</p>
