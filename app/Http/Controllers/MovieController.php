@@ -65,7 +65,7 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
         
-        //return view('movies.edit', ['header' => "Editar Película", 'movie' => $movie]); No implementado
+        return view('movies', ['header' => "edit", 'movie' => $movie]);
     }
 
     /**
@@ -81,14 +81,18 @@ class MovieController extends Controller
         ]);
 
         $movie = Movie::find($id);
+        $movieBackup = $movie;
 
         $movie->update([
             'title' => $request->title,
+            'description' => $request->description ?? $movieBackup->description,
             'duration' => $request->duration,
             'release_date' => $request->release_date,
-            'avg_rate' => $request->avg_rate ?? $movie->avg_rate,
-            'img_path' => $request->img_path ?? $movie->img_path,
+            'avg_rate' => $request->avg_rate ?? $movieBackup->avg_rate,
+            'img_path' => $request->img_path ?? $movieBackup->img_path,
         ]);
+
+        return redirect()->route('movie.index');
     }
 
     /**
