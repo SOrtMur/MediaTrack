@@ -36,6 +36,9 @@
                     <x-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.*')">
                         {{ __('Peliculas') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                        {{ __('Usuarios') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -118,6 +121,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.*')">
                     {{ __('Peliculas') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                    {{ __('Usuarios') }}
                 </x-responsive-nav-link>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

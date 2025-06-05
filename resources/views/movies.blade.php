@@ -35,7 +35,7 @@
                             <div class="flex justify-between mt-2 mb-2 align-end">
                                 <a href="{{ route('movie.show', $movie->id)}}" class="text-white font-semibold underline">Ver detalles</a>
                                 <a href="{{ route('movie.edit', $movie->id)}}" class="text-white font-semibold underline">Editar</a>
-                                <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold">
+                                <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirm('¿Estás seguro de eliminar esta película?');">
                                     @csrf
                                     @method("DELETE")
                                     <input type="submit" value="Borrar" class="btn btn-info underline"/>
@@ -92,8 +92,8 @@
                             <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
                             <input type="number" name="avg_rate" id="avg_rate" step="0.1" min="0" max="10" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded border">
                                 Guardar
                             </button>
                         </div>
@@ -101,8 +101,6 @@
                 </div>
             @break
         @case(str_contains($header, "edit"))
-            <h1>Editar Película</h1>
-            {{-- Formulario de edicion de pelicula --}}
             <div class="container mx-auto px-4 py-8 mt-4">
                 <div class="flex-row justify-center">
                     <form action="{{ route('movie.update', $movie->id) }}" method="POST" class="basis-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
@@ -132,8 +130,8 @@
                             <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
                             <input type="number" name="avg_rate" id="avg_rate" step="0.1" min="0" max="10" value="{{ $movie->avg_rate }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded border">
                                 Editar
                             </button>
                         </div>

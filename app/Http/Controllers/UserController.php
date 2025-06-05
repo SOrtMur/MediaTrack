@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -12,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        //return view('index', ['header' => "Usuarios"], compact('users')); No implementado
+        return view('users', ['header' => "index"], compact('users'));
     }
 
     /**
@@ -24,7 +28,7 @@ class UserController extends Controller
         $roles = Role::all();
         
 
-        //No implementado
+        return view('users', ['header' => "create"], compact('users', 'roles'));
     }
 
     /**
@@ -36,6 +40,7 @@ class UserController extends Controller
             'name' => 'required',
             'password' => 'required',
             'email' => 'required',
+            'role' => 'required',
         ]);
 
         $user = User::create([
@@ -46,9 +51,9 @@ class UserController extends Controller
             'remember_token' => Str::random(10),
         ]);
 
-        $user->role()->attach($request->role_id);
+        $user->role()->attach($request->role);
 
-        //return redirect()->route('user.index'); No implementado
+        return redirect()->route('user.index');
     }
 
     /**
@@ -57,7 +62,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
-        //return view('show', ['header' => "$user->name", 'user' => $user]); No implementado
+        return view('users', ['header' => "show", 'user' => $user]);
     }
 
     /**
@@ -70,7 +75,7 @@ class UserController extends Controller
         
         $roles = Role::all();
         
-        //return view('edit', ['header' => "Editar $user->name", 'user' => $user], compact('users', 'roles')); No implementado
+        return view('users', ['header' => "edit", 'user' => $user, 'users' => $users, 'roles' => $roles]);
     }
 
     /**
@@ -84,10 +89,12 @@ class UserController extends Controller
             'email' => 'required',
         ]);
 
-        $user = User::find($id)->update([
+        User::find($id)->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
+
+        $user = User::find($id);
 
         if ($request->password) {
             $user->update([
@@ -95,9 +102,13 @@ class UserController extends Controller
             ]);
         }
 
-        $user->role()->sync($request->role_id);
+        if ($request->role) {
+            $user->role()->detach();
+            $user->role()->attach($request->role);
+            $user->save();
+        }
 
-        //return redirect()->route('user.index'); No implementado
+        return redirect()->route('user.index');
 
     }
 
@@ -107,6 +118,6 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         User::destroy($id);
-        //return redirect()->route('user.index'); No implementado
+        return redirect()->route('user.index');
     }
 }
