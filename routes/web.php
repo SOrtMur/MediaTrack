@@ -7,6 +7,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AnimeController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
