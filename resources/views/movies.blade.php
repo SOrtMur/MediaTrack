@@ -35,7 +35,7 @@
                             <div class="flex justify-between mt-2 mb-2 align-end">
                                 <a href="{{ route('movie.show', $movie->id)}}" class="text-white font-semibold underline">Ver detalles</a>
                                 <a href="{{ route('movie.edit', $movie->id)}}" class="text-white font-semibold underline">Editar</a>
-                                <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirm('¿Estás seguro de eliminar esta película?');">
+                                <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirmDelete();">
                                     @csrf
                                     @method("DELETE")
                                     <input type="submit" value="Borrar" class="btn btn-info underline"/>
@@ -58,7 +58,6 @@
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Valoración media: </span>{{ $movie->avg_rate }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Duración: </span>{{ $movie->duration }} minutos.</p>
                         </div>
-                        {{-- Posibilida de añadir un link al buscador de peliculas con $movie->title --}}
                     </div>
                 </div>
             </div>
@@ -141,3 +140,9 @@
         @break
     @endswitch
 @endsection
+
+<script>
+    function confirmDelete() {
+        return confirm('¿Estás seguro de eliminar esta película?');
+    }
+</script>
