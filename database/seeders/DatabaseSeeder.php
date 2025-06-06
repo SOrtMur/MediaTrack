@@ -100,6 +100,36 @@ class DatabaseSeeder extends Seeder
                 'img_path' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU34kLG8mnBb4Hf62Etepld95zC_l-Xid6wQ&s',
             ],
         ]);
+        //Seedear los mangas
+        DB::table('mangas')->insert([
+            [
+                'title' => 'One Piece',
+                'description' => 'La historia sigue a Monkey D. Luffy y su tripulación de piratas en su búsqueda del tesoro más grande del mundo, el One Piece.',
+                'release_date' => '1997-07-22',
+                'chapters' => 1000,
+                'status' => 'En emisión',
+                'avg_score' => 9.5,
+                'img_path' => 'https://m.media-amazon.com/images/I/81+6b1k2JpL.jpg',
+            ],
+            [
+                'title' => 'Naruto',
+                'description' => 'Naruto Uzumaki, un joven ninja con el sueño de convertirse en Hokage, lucha por ganarse el respeto de su aldea.',
+                'release_date' => '1999-09-21',
+                'chapters' => 700,
+                'status' => 'Finalizado',
+                'avg_score' => 8.8,
+                'img_path' => 'https://m.media-amazon.com/images/I/71+4d3e2yXL.jpg',
+            ],
+            [
+                'title' => 'Death Note',
+                'description' => 'Un estudiante de secundaria encuentra un cuaderno que le permite matar a cualquier persona cuyo nombre escriba en él.',
+                'release_date' => '2003-01-02',
+                'chapters' => 108,
+                'status' => 'Finalizado',
+                'avg_score' => 9.2,
+                'img_path' => 'https://m.media-amazon.com/images/I/81+4d3e2yXL.jpg',
+            ],
+        ]);
 
     }
 }
