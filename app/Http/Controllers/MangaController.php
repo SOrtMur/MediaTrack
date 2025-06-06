@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Manga;
 
 class MangaController extends Controller
 {
@@ -13,7 +14,7 @@ class MangaController extends Controller
     {
         $mangas = Manga::all();
         
-        // return view('mangas.index', ['header' => "Mangas"], compact('mangas')); No implementado
+        return view('mangas', ['header' => "index", 'mangas' => $mangas]);
     }
 
     /**
@@ -21,7 +22,7 @@ class MangaController extends Controller
      */
     public function create()
     {
-        // return view('mangas.create', ['header' => "Crear Manga"]); No implementado
+        return view('mangas', ['header' => "create"]);
     }
 
     /**
@@ -30,7 +31,6 @@ class MangaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required|unique:mangas',
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
             'status' => 'required|string',
@@ -40,6 +40,7 @@ class MangaController extends Controller
         Manga::create([
             'id' => $request->id,
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
             'status' => $request->status,
             'chapters' => $request->chapters,
@@ -48,7 +49,7 @@ class MangaController extends Controller
 
         ]);
 
-        // return redirect()->route('mangas.index'); No implementado
+        return redirect()->route('manga.index');
     }
 
     /**
@@ -58,9 +59,8 @@ class MangaController extends Controller
     {
         $manga = Manga::find($id);
         
-        // return view('mangas.show', ['header' => $manga->title, 'manga' => $manga]); No implementado
+        return view('mangas', ['header' => 'show', 'manga' => $manga]);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -68,7 +68,7 @@ class MangaController extends Controller
     {
         $manga = Manga::find($id);
         
-        // return view('mangas.edit', ['header' => "Editar Manga", 'manga' => $manga]); No implementado
+        return view('mangas', ['header' => "edit", 'manga' => $manga]);
     }
 
     /**
@@ -86,6 +86,7 @@ class MangaController extends Controller
         $manga = Manga::find($id);
         $manga->update([
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
             'status' => $request->status,
             'chapters' => $request->chapters,
@@ -93,7 +94,7 @@ class MangaController extends Controller
             'img_path' => $request->img_path ?? null,
         ]);
 
-        // return redirect()->route('mangas.index'); No implementado
+        return redirect()->route('manga.index');
     }
 
     /**
@@ -103,6 +104,6 @@ class MangaController extends Controller
     {
         Manga::destroy($id);
         
-        // return redirect()->route('mangas.index'); No implementado
+        return redirect()->route('manga.index');
     }
 }

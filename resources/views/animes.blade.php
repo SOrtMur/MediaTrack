@@ -55,7 +55,7 @@
                         <div class="flex flex-col justify-center text-md md:text-base lg:text-xl">
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Fecha de estreno: </span>{{ date('d M Y', strtotime($anime->release_date)) }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Descripción: </span>{{ $anime->description }}</p>
-                            <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Valoración media: </span>{{ $anime->avg_rate }}</p>
+                            <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Valoración media: </span>{{ $anime->avg_score }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Número de episodios: </span>{{ $anime->episodes }}</p>
                             <p class="text-gray-600 dark:text-gray-400 mb-3"><span class="text-white font-semibold">Estado de emisión: </span>{{ $anime->status }}</p>
                             <div class="flex justify-center mt-4">
@@ -102,8 +102,8 @@
                             <input type="number" name="episodes" id="episodes" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                         </div>
                         <div class="mb-4">
-                            <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
-                            <input type="number" name="avg_rate" id="avg_rate" step="0.1" min="0" max="10" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <label for="avg_score" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
+                            <input type="number" name="avg_score" id="avg_score" step="0.1" min="0" max="10" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
                         <div class="flex justify-center">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded border">
@@ -148,8 +148,8 @@
                             <input type="number" name="episodes" id="episodes" value="{{ $anime->episodes }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                         </div>
                         <div class="mb-4">
-                            <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
-                            <input type="number" name="avg_rate" id="avg_rate" step="0.1" min="0" max="10" value="{{ $anime->avg_rate }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <label for="avg_score" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
+                            <input type="number" name="avg_score" id="avg_score" step="0.1" min="0" max="10" value="{{ $anime->avg_score }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
                         
                         <div class="flex justify-center">
