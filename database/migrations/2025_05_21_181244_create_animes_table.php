@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
+            $table->string('description')->nullable();
+            $table->date('release_date');
+            $table->integer('episodes')->default(1);
+            $table->string('status')->default('Proximamente');
+            $table->decimal('avg_score', 3, 1)->nullable();
+            $table->string('img_path')->nullable()->default('https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.jpg');
             $table->timestamps();
         });
     }

@@ -30,7 +30,6 @@ Route::resource('anime', AnimeController::class)->names('anime');
 Route::resource('manga', MangaController::class)->names('manga');
 Route::resource('juego', GameController::class)->names('game');
 
-
 Route::get('/demo', [DemoController::class, 'demoIndex'])->name('demo');
 Route::get('/demo/{id}', [DemoController::class, 'demoShow'])->name('demo.show');
 

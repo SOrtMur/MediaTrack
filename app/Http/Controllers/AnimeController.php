@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Anime;
+
 
 class AnimeController extends Controller
 {
@@ -12,7 +14,7 @@ class AnimeController extends Controller
     public function index()
     {
         $animes = Anime::all();
-        //return view('animes.index', ['header' => "Animes"], compact('animes')); No implementado
+        return view('animes', ['header' => "index"], compact('animes'));
     }
 
     /**
@@ -20,7 +22,7 @@ class AnimeController extends Controller
      */
     public function create()
     {
-        //return view('animes.create', ['header' => "Crear Anime"]); No implementado
+        return view('animes', ['header' => "create"]);
     }
 
     /**
@@ -29,7 +31,6 @@ class AnimeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required|unique:animes',
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
             'episodes' => 'required|integer|min:1',
@@ -37,8 +38,8 @@ class AnimeController extends Controller
         ]);
 
         Anime::create([
-            'id' => $request->id,
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
             'episodes' => $request->episodes,
             'status' => $request->status,
@@ -46,7 +47,7 @@ class AnimeController extends Controller
             'img_path' => $request->img_path ?? null
         ]);
 
-        //return redirect()->route('animes.index'); No implementado
+        return redirect()->route('anime.index');
     }
 
     /**
@@ -55,16 +56,15 @@ class AnimeController extends Controller
     public function show(string $id)
     {
         $anime = Anime::find($id);
-        //return view('animes.show', ['header' => $anime->title, 'anime' => $anime]); No implementado
+        return view('animes', ['header' => 'show', 'anime' => $anime]);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
         $anime = Anime::find($id);
-        //return view('animes.edit', ['header' => "Editar Anime", 'anime' => $anime]); No implementado
+        return view('animes', ['header' => "edit", 'anime' => $anime]);
     }
 
     /**
@@ -82,13 +82,14 @@ class AnimeController extends Controller
         $anime = Anime::find($id);
         $anime->update([
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
             'episodes' => $request->episodes,
-            'status' => $request->status,
+            'status' => $request->status ?? 'Proximamente',
             'avg_score' => $request->avg_score ?? null,
             'img_path' => $request->img_path ?? null
         ]);
-        //return redirect()->route('animes.index'); No implementado
+        return redirect()->route('anime.index');
     }
 
     /**
@@ -97,6 +98,6 @@ class AnimeController extends Controller
     public function destroy(string $id)
     {
         Anime::destroy($id);
-        //return redirect()->route('animes.index'); No implementado
+        return redirect()->route('anime.index');
     }
 }
