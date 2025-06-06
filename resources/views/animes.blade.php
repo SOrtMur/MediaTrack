@@ -92,14 +92,14 @@
                         <div class="mb-4">
                             <label for="status" class="block text-md font-medium text-gray-700 dark:text-gray-300">Estado de emisión</label>
                             <select name="status" id="status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                <option value="proximamente">Próximamente</option>
-                                <option value="en emision">En emisión</option>
-                                <option value="finalizado">Finalizado</option>
+                                <option value="Proximamente" selected>Próximamente</option>
+                                <option value="En emision">En emisión</option>
+                                <option value="Finalizado">Finalizado</option>
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="duration" class="block text-md font-medium text-gray-700 dark:text-gray-300">Episodios</label>
-                            <input type="number" name="duration" id="duration" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                            <label for="episodes" class="block text-md font-medium text-gray-700 dark:text-gray-300">Episodios</label>
+                            <input type="number" name="episodes" id="episodes" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                         </div>
                         <div class="mb-4">
                             <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
@@ -134,9 +134,9 @@
                         <div class="mb-4">
                             <label for="status" class="block text-md font-medium text-gray-700 dark:text-gray-300">Estado de emisión</label>
                             <select name="status" id="status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                <option value="proximamente" {{ $anime->status == 'proximamente' ? 'selected' : '' }}>Próximamente</option>
-                                <option value="en emision" {{ $anime->status == 'en emision' ? 'selected' : '' }}>En emisión</option>
-                                <option value="finalizado" {{ $anime->status == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+                                <option value="Proximamente" {{ $anime->status == 'proximamente' ? 'selected' : '' }}>Próximamente</option>
+                                <option value="En emision" {{ $anime->status == 'en emision' ? 'selected' : '' }}>En emisión</option>
+                                <option value="Finalizado" {{ $anime->status == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
                             </select>
                         </div>
                         <div class="mb-4">
@@ -144,8 +144,8 @@
                             <input type="url" name="img_path" id="img_path" value="{{ $anime->img_path }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
                         <div class="mb-4">
-                            <label for="duration" class="block text-md font-medium text-gray-700 dark:text-gray-300">Episodios</label>
-                            <input type="number" name="duration" id="duration" value="{{ $anime->episodes }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                            <label for="episodes" class="block text-md font-medium text-gray-700 dark:text-gray-300">Episodios</label>
+                            <input type="number" name="episodes" id="episodes" value="{{ $anime->episodes }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                         </div>
                         <div class="mb-4">
                             <label for="avg_rate" class="block text-md font-medium text-gray-700 dark:text-gray-300">Valoración media</label>
