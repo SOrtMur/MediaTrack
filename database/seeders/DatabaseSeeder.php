@@ -130,6 +130,30 @@ class DatabaseSeeder extends Seeder
                 'img_path' => 'https://m.media-amazon.com/images/I/81+4d3e2yXL.jpg',
             ],
         ]);
+        //Seedear los juegos
+        DB::table('games')->insert([
+            [
+                'title' => 'The Legend of Zelda: Breath of the Wild',
+                'description' => 'Un juego de acción y aventura en un mundo abierto donde Link debe derrotar a Calamity Ganon.',
+                'release_date' => '2017-03-03',
+                'avg_score' => 9.7,
+                'img_path' => 'https://m.media-amazon.com/images/I/81+4d3e2yXL.jpg',
+            ],
+            [
+                'title' => 'The Witcher 3: Wild Hunt',
+                'description' => 'Un juego de rol de acción en un mundo abierto donde Geralt de Rivia busca a su hija adoptiva Ciri.',
+                'release_date' => '2015-05-19',
+                'avg_score' => 9.5,
+                'img_path' => 'https://m.media-amazon.com/images/I/81+4d3e2yXL.jpg',
+            ],
+            [
+                'title' => 'God of War (2018)',
+                'description' => 'Un juego de acción y aventura donde Kratos y su hijo Atreus deben enfrentarse a los dioses nórdicos.',
+                'release_date' => '2018-04-20',
+                'avg_score' => 9.4,
+                'img_path' => 'https://m.media-amazon.com/images/I/81+4d3e2yXL.jpg',
+            ],
+        ]);
 
     }
 }
