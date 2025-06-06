@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Game;
 
 class GameController extends Controller
 {
@@ -11,8 +12,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        $juegos = Game::all();
-        //return view('games.index', ['header' => "Juegos"], compact('juegos')); No implementado
+        $games = Game::all();
+        return view('games', ['header' => "index"], compact('games'));
     }
 
     /**
@@ -20,7 +21,7 @@ class GameController extends Controller
      */
     public function create()
     {
-        //return view('games.create', ['header' => "Crear Juego"]); No implementado
+        return view('games', ['header' => "create"]);
     }
 
     /**
@@ -29,21 +30,19 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required|unique:games',
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
-            'platforms' => 'required|array',
         ]);
 
         Game::create([
-            'id' => $request->id,
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
-            'platforms' => json_encode($request->platforms),
-            'avg_rate' => $request->avg_rate ?? null,
+            'avg_score' => $request->avg_score ?? null,
+            'img_path' => $request->img_path ?? null,
         ]);
 
-        //return redirect()->route('games.index'); No implementado
+        return redirect()->route('game.index');
     }
 
     /**
@@ -53,7 +52,7 @@ class GameController extends Controller
     {
         $game = Game::find($id);
         
-        //return view('games.show', ['header' => $game->title, 'game' => $game]); No implementado
+        return view('games', ['header' => 'show', 'game' => $game]);
     }
 
     /**
@@ -62,7 +61,7 @@ class GameController extends Controller
     public function edit(string $id)
     {
         $game = Game::find($id);
-        //return view('games.edit', ['header' => "Editar Juego", 'game' => $game]); No implementado
+        return view('games', ['header' => "edit", 'game' => $game]);
     }
 
     /**
@@ -73,18 +72,18 @@ class GameController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
-            'platforms' => 'required|array',
         ]);
 
         $game = Game::find($id);
         $game->update([
             'title' => $request->title,
+            'description' => $request->description ?? null,
             'release_date' => $request->release_date,
-            'platforms' => json_encode($request->platforms),
-            'avg_rate' => $request->avg_rate ?? null,
+            'avg_score' => $request->avg_score ?? null,
+            'img_path' => $request->img_path ?? null,
         ]);
 
-        //return redirect()->route('games.index'); No implementado
+        return redirect()->route('game.index');
     }
 
     /**
@@ -93,6 +92,6 @@ class GameController extends Controller
     public function destroy(string $id)
     {
         Game::destroy($id);
-        //return redirect()->route('games.index'); No implementado
+        return redirect()->route('game.index');
     }
 }

@@ -17,7 +17,6 @@ class Game extends Model
         'release_date',
         'avg_score',
         'img_path',
-        'platforms',
     ];
 
     public function users()

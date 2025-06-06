@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->date('release_date');
-            $dable->string('avg_score')->nullable();
+            $table->decimal('avg_score', 3, 1)->nullable();
             $table->string('img_path')->nullable();
             $table->timestamps();
         });

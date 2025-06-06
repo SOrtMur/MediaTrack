@@ -38,7 +38,6 @@ class MangaController extends Controller
         ]);
 
         Manga::create([
-            'id' => $request->id,
             'title' => $request->title,
             'description' => $request->description ?? null,
             'release_date' => $request->release_date,
