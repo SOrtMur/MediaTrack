@@ -70,5 +70,36 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        //Seedear los animes
+        DB::table('animes')->insert([
+            [
+                'title' => 'Attack on Titan',
+                'description' => 'En un mundo donde la humanidad vive dentro de enormes muros para protegerse de gigantes devoradores de humanos, Eren Yeager se une a la Legión de reconocimiento para luchar contra los titanes.',
+                'release_date' => '2013-04-07',
+                'episodes' => 25,
+                'status' => 'Finalizado',
+                'avg_score' => 9.0,
+                'img_path' => 'https://m.media-amazon.com/images/I/713JPi6+CkL.jpg',
+            ],
+            [
+                'title' => 'My Hero Academia',
+                'description' => 'En un mundo donde la mayoría de las personas tienen superpoderes, Izuku Midoriya, un niño sin poderes, sueña con convertirse en un héroe.',
+                'release_date' => '2016-04-03',
+                'episodes' => 88,
+                'status' => 'En emisión',
+                'avg_score' => 8.5,
+                'img_path' => 'https://static.wikia.nocookie.net/bokunoheroacademia/images/9/9c/Season_7_Poster_3.png',
+            ],
+            [
+                'title' => 'Demon Slayer: Kimetsu no Yaiba',
+                'description' => 'Tanjiro Kamado, un joven que se convierte en cazador de demonios para vengar a su familia y curar a su hermana Nezuko, quien se ha convertido en un demonio.',
+                'release_date' => '2019-04-06',
+                'episodes' => 26,
+                'status' => 'Finalizado',
+                'avg_score' => 8.7,
+                'img_path' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU34kLG8mnBb4Hf62Etepld95zC_l-Xid6wQ&s',
+            ],
+        ]);
+
     }
 }
