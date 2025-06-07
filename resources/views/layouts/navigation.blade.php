@@ -58,8 +58,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="'/library'">
+                            {{ __('Tu Biblioteca') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Perfil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
