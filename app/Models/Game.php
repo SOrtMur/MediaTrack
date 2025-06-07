@@ -21,6 +21,6 @@ class Game extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'games_users');
+        return $this->belongsToMany(User::class, 'games_users')->withPivot('played_status', 'played_time', 'added_at');
     }
 }

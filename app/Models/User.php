@@ -28,19 +28,19 @@ class User extends Authenticatable
     }
 
     public function movies(){
-        return $this->belongsToMany(Movie::class, 'movies_users');
+        return $this->belongsToMany(Movie::class, 'movies_users')->withPivot('watched_status', 'watched_time', 'added_at');
     }
 
     public function mangas(){
-        return $this->belongsToMany(Manga::class, 'mangas_users');
+        return $this->belongsToMany(Manga::class, 'mangas_users')->withPivot('read_status', 'read_time', 'added_at');
     }
 
     public function games(){
-        return $this->belongsToMany(Game::class, 'games_users');
+        return $this->belongsToMany(Game::class, 'games_users')->withPivot('played_status', 'played_time', 'added_at');
     }
 
     public function animes(){
-        return $this->belongsToMany(Anime::class, 'animes_users');
+        return $this->belongsToMany(Anime::class, 'animes_users')->withPivot('watched_status', 'watched_time', 'added_at');
     }
 
     // Metodo para el middleware, comprobando si el usuario tiene un rol especifico.

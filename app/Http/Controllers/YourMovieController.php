@@ -24,8 +24,12 @@ class YourMovieController extends Controller
      */
     public function create()
     {
+        $user = User::find(Auth::user()->id);
+        
+        $yourMoviesIds = $user->movies()->pluck('movie_id')->toArray();
+
         $movies = Movie::all();
-        return view('your_movies', ['header' => "create", compact('movies')]);
+        return view('your_movies', ['header' => "create"], compact('movies','yourMoviesIds'));
     }
 
     /**
@@ -35,18 +39,22 @@ class YourMovieController extends Controller
     {
         // Validate the request data for id, title, duration, and release_date
         $request->validate([
-            'title' => 'required|string|max:255',
-            'view_status' => 'required|string',
-            'watched_time' => 'required|integer|min:0',
+            'movie_id' => 'required',
+            'watched_status' => 'required|string',
         ]);
 
-        // Create a new movie instance and save it
-        Auth::user()->movies()->create([
-            'title' => $request->title,
-            'view_status' => $request->view_status ?? 'Pendiente',
+        $user = User::find(Auth::user()->id);
+
+        if ($user->movies()->where('movie_id', $request->movie_id)->exists()) {
+            return redirect()->route('your_movie.index')->with('error', 'Pelicula ya añadida.');
+        }
+
+        $user->movies()->attach([
+            $request->movie_id =>[
+            'watched_status' => $request->watched_status,
             'watched_time' => $request->watched_time ?? 0,
             'added_at' => now(),
-        ]);
+        ]]);
 
         return redirect()->route('your_movie.index');
     }
@@ -56,13 +64,14 @@ class YourMovieController extends Controller
      */
     public function show(string $id)
     {
-        $movie = Auth::user()->movies()->find($id);
+        // El show queda implementado en el modelo Movie, no es necesario implementarlo aqui.
+        // $movie = Auth::user()->movies()->find($id);
         
-        if (!$movie) {
-            return redirect()->route('your_movie.index')->with('error', 'Pelicula no encontrada.');
-        }
+        // if (!$movie) {
+        //     return redirect()->route('your_movie.index')->with('error', 'Pelicula no encontrada.');
+        // }
 
-        return view('your_movies', ['header' => "show", 'movie' => $movie]);
+        // return view('your_movies', ['header' => "show", 'movie' => $movie]);
     }
 
     /**
@@ -70,7 +79,8 @@ class YourMovieController extends Controller
      */
     public function edit(string $id)
     {
-        $movie = Auth::user()->movies()->find($id);
+        $user = User::find(Auth::user()->id);
+        $movie = $user->movies()->where('movie_id', $id)->first();
         
         if (!$movie) {
             return redirect()->route('your_movie.index')->with('error', 'Pelicula no encontrada.');
@@ -85,21 +95,20 @@ class YourMovieController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'view_status' => 'required|string',
+            'watched_status' => 'required|string',
             'watched_time' => 'required|integer|min:0',
         ]);
 
-        $movie = Auth::user()->movies()->find($id);
-        
+        $user = User::find(Auth::user()->id);
+        $movie = $user->movies()->where('movie_id', $id)->first();   
+
         if (!$movie) {
             return redirect()->route('your_movie.index')->with('error', 'Pelicula no encontrada.');
         }
 
         // Update the movie instance
-        $movie->update([
-            'title' => $request->title,
-            'view_status' => $request->view_status,
+        $user->movies()->updateExistingPivot($id, [
+            'watched_status' => $request->watched_status,
             'watched_time' => $request->watched_time,
         ]);
 
@@ -111,13 +120,14 @@ class YourMovieController extends Controller
      */
     public function destroy(string $id)
     {
-        $movie = Auth::user()->movies()->find($id);
+        $user = User::find(Auth::user()->id);
+        $movie = $user->movies()->where('movie_id', $id)->first();
         
         if (!$movie) {
             return redirect()->route('your_movie.index')->with('error', 'Pelicula no encontrada.');
         }
 
-        $movie->delete();
+        $user->movies()->detach($id);
         
         return redirect()->route('your_movie.index');
     }

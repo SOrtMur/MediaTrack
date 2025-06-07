@@ -155,5 +155,18 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        //Seedear las peliculas del usuario admin (Hay que indexar empezando desde 1 para que coincida con el id de la pelicula).
+        User::find(1)->movies()->attach([
+            1 => [
+                'watched_status' => 'Vista',
+                'watched_time' => 120,
+                'added_at' => now(),
+            ],
+            3 => [
+                'watched_status' => 'Vista',
+                'watched_time' => 150,
+                'added_at' => now(),
+            ]
+        ]);      
     }
 }

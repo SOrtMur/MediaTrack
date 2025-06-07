@@ -23,6 +23,6 @@ class Manga extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'movies_users');
+        return $this->belongsToMany(User::class, 'movies_users')->withPivot('read_status', 'read_time', 'added_at');
     }
 }
