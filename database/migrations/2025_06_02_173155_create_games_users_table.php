@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Game;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('games_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('game_id')->constrained('games')->nullable()->default(null)->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->nullable()->default(null)->onDelete('cascade');
-            $table->string('game_title')->nullable()->default(null);
-            $table->date('played_date')->nullable()->default(null);
+            $table->integer('game_id')->constrained('games')->nullable()->default(null)->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained('users')->onDelete('cascade');
+            $table->date('last_played_at')->nullable()->default(null);
+            $table->date('added_at');
             $table->string('played_status')->default('Pendiente');
             $table->double('played_time')->default(0);
             $table->timestamps();
