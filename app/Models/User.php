@@ -36,7 +36,7 @@ class User extends Authenticatable
     }
 
     public function games(){
-        return $this->belongsToMany(Game::class, 'games_users')->withPivot('played_status', 'played_time', 'added_at');
+        return $this->belongsToMany(Game::class, 'games_users')->withPivot('played_status', 'played_time', 'added_at', 'last_played_at');
     }
 
     public function animes(){

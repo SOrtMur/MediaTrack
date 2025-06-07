@@ -14,7 +14,7 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Juegos</h2>
                     <p class="text-gray-600 dark:text-gray-400">Gestiona tus juegos, añade nuevos, elimina los que no quieras.</p>
-                    <a href="/library/games" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Juegos</a>
+                    <a href="{{route('your_game.index')}}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Juegos</a>
                 </div>
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Mangas</h2>

@@ -168,5 +168,22 @@ class DatabaseSeeder extends Seeder
                 'added_at' => now(),
             ]
         ]);      
+
+        //Seedear los juegos del usuario admin (Hay que indexar empezando desde 1 para que coincida con el id del juego).
+        User::find(1)->games()->attach([
+            1 => [
+                'played_status' => 'Pendiente',
+                'played_time' => 0,
+                'last_played_at' => null,
+                'added_at' => now(),
+
+            ],
+            2 => [
+                'played_status' => 'Jugando',
+                'played_time' => 53.5,
+                'last_played_at' => null,
+                'added_at' => now(),
+            ]
+        ]);
     }
 }

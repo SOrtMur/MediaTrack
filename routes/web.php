@@ -9,6 +9,7 @@ use App\Http\Controllers\MangaController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\YourMovieController;
+use App\Http\Controllers\YourGameController;
 
 
 Route::get('/', function () {
@@ -35,6 +36,7 @@ Route::resource('anime', AnimeController::class)->names('anime');
 Route::resource('manga', MangaController::class)->names('manga');
 Route::resource('juego', GameController::class)->names('game');
 Route::resource('tu_pelicula', YourMovieController::class)->names('your_movie');
+Route::resource('tu_juego', YourGameController::class)->names('your_game');
 
 Route::get('/demo', [DemoController::class, 'demoIndex'])->name('demo');
 Route::get('/demo/{id}', [DemoController::class, 'demoShow'])->name('demo.show');

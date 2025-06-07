@@ -15,7 +15,8 @@ class YourMovieController extends Controller
      */
     public function index()
     {
-        $movies = Auth::user()->movies()->get();
+        $user = User::find(Auth::user()->id);
+        $movies = $user->movies()->get();
         return view('your_movies', ['header' => "index"], compact('movies'));
     }
 
