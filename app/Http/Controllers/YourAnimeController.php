@@ -26,7 +26,11 @@ class YourAnimeController extends Controller
      */
     public function create()
     {
-        //
+        $user = User::find(Auth::user()->id);
+        $yourAnimesIds = $user->animes()->pluck('anime_id')->toArray();
+        $animes = Anime::all();
+
+        return view('your_animes', ['header' => 'create'], compact('animes', 'yourAnimesIds'));
     }
 
     /**
@@ -34,7 +38,27 @@ class YourAnimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'anime_id' => 'required',
+            'watched_status' => 'required|string',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        if ($user->animes()->where('anime_id', $request->anime_id)->exists()) {
+            return redirect()->route('your_anime.index')->with('error', 'Anime ya añadido.');
+        }
+
+        $user->animes()->attach([
+            $request->anime_id => [
+                'watched_status' => $request->watched_status,
+                'last_episode_watched' => $request->last_episode_watched ?? 0,
+                'last_watched_date' => now(),
+                'added_at' => now(),
+            ]
+        ]);
+
+        return redirect()->route('your_anime.index');
     }
 
     /**
@@ -42,7 +66,7 @@ class YourAnimeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //No se necesita implementar, ya que no se usa el del AnimeController.
     }
 
     /**
@@ -50,7 +74,14 @@ class YourAnimeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find(Auth::user()->id);
+        $anime = $user->animes()->where('anime_id', $id)->first();
+
+        if (!$anime) {
+            return redirect()->route('your_anime.index')->with('error', 'Anime no encontrado.');
+        }
+
+        return view('your_animes', ['header' => 'edit'], compact('anime'));
     }
 
     /**
@@ -58,7 +89,24 @@ class YourAnimeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'watched_status' => 'required|string',
+            'last_episode_watched' => 'nullable|integer',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $anime = $user->animes()->where('anime_id', $id)->first();
+
+        if (!$anime) {
+            return redirect()->route('your_anime.index')->with('error', 'Anime no encontrado.');
+        }
+
+        $anime->pivot->watched_status = $request->watched_status;
+        $anime->pivot->last_episode_watched = $request->last_episode_watched ?? 0;
+        $anime->pivot->last_watched_date = now();
+        $anime->pivot->save();
+
+        return redirect()->route('your_anime.index');
     }
 
     /**
@@ -66,6 +114,15 @@ class YourAnimeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find(Auth::user()->id);
+        $anime = $user->animes()->where('anime_id', $id)->first();
+
+        if (!$anime) {
+            return redirect()->route('your_anime.index')->with('error', 'Anime no encontrado.');
+        }
+
+        $user->animes()->detach($id);
+
+        return redirect()->route('your_anime.index');
     }
 }

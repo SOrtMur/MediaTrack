@@ -39,7 +39,7 @@
                                     <td class="px-4 py-2 text-center text-gray-900 dark:text-white font-semibold">{{ $anime->title }}</td>
                                     <td class="px-4 py-2 text-center text-gray-900 dark:text-white">{{ $anime->pivot->watched_status }}</td>
                                     <td class="px-4 py-2 text-center text-gray-900 dark:text-white">{{ $anime->pivot->last_episode_watched }} </td>
-                                    <td class="px-4 py-2 text-center text-gray-900 dark:text-white">{{ $anime->pivot->last_watched_at ? date('d M Y', strtotime($anime->pivot->last_watched_at)) : 'No visto' }}</td>
+                                    <td class="px-4 py-2 text-center text-gray-900 dark:text-white">{{ $anime->pivot->last_watched_date ? date('d M Y', strtotime($anime->pivot->last_watched_date)) : 'No Visto' }}</td>
                                     <td class="px-4 py-2 text-center text-gray-900 dark:text-white">{{ date('d M Y', strtotime($anime->pivot->added_at)) }}</td>
                                     <td class="px-4 py-2 ">
                                         <div class="flex gap-4 justify-center">
@@ -69,21 +69,21 @@
                             <select name="anime_id" id="anime_id" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                 <option value="" selected disabled>Selecciona un anime</option>
                                 @foreach($animes as $anime)
-                                    @if ( !in_array($anime->id, $youranimesIds))                                        
+                                    @if ( !in_array($anime->id, $yourAnimesIds))                                        
                                         <option value="{{ $anime->id }}">{{ $anime->title }}</option>
                                     @endif
                                 @endforeach
                                 
-                                @if (count($animes) == count($youranimesIds))
+                                @if (count($animes) == count($yourAnimesIds))
                                     <option value="" disabled>No quedan animes disponibles</option>
                                 @endif
                             </select>
-                            <a href="{{ route('anime.create') }}" class="block mt-2 text-white dark:text-white underline text-center">¿No encuentras la pelicula deseada? Añádela aquí</a>
+                            <a href="{{ route('anime.create') }}" class="block mt-2 text-white dark:text-white underline text-center">¿No encuentras el anime deseado? Añádelo aquí</a>
                             
                             <label for="watched_status" class="block text-md font-medium text-gray-700 dark:text-gray-300">Estado de visionado</label>
                             <select name="watched_status" id="watched_status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                 <option value="" selected disabled>Selecciona un estado</option>
-                                <option value="No_visto">No visto</option>
+                                <option value="Pendiente">Pendiente</option>
                                 <option value="Viendo">Viendo</option>
                                 <option value="Visto">Visto</option>
                             </select>
@@ -113,7 +113,7 @@
                         <div class="mb-4">
                             <label for="watched_status" class="block text-md font-medium text-gray-700 dark:text-gray-300">Estado de visionado</label>
                             <select name="watched_status" id="watched_status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
-                                <option value="No_visto" {{ $anime->pivot->watched_status == 'No_visto' ? 'selected' : '' }}>No visto</option>
+                                <option value="Pendiente" {{ $anime->pivot->watched_status == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
                                 <option value="Viendo" {{ $anime->pivot->watched_status == 'Viendo' ? 'selected' : '' }}>Viendo</option>
                                 <option value="Visto" {{ $anime->pivot->watched_status == 'Visto' ? 'selected' : '' }}>Visto</option>
                             </select>
@@ -142,7 +142,7 @@
         const estado = document.getElementById('watched_status');
         const ultimoVisto = document.getElementById('last_episode_watched');
         if (estado && ultimoVisto) {
-            if (estado.value === 'No_visto') {
+            if (estado.value === 'Pendiente') {
                 ultimoVisto.value = 0;
             }
         }
