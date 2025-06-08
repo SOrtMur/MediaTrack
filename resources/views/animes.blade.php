@@ -34,12 +34,14 @@
                             </div>
                             <div class="flex justify-between mt-2 mb-2 align-end">
                                 <a href="{{ route('anime.show', $anime->id)}}" class="text-white font-semibold underline">Ver detalles</a>
-                                <a href="{{ route('anime.edit', $anime->id)}}" class="text-white font-semibold underline">Editar</a>
-                                <form action="{{route('anime.destroy', $anime->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirmDelete();">
-                                    @csrf
-                                    @method("DELETE")
-                                    <input type="submit" value="Borrar" class="btn btn-info underline"/>
-                                </form>
+                                @unless (!Auth::user()->hasRole("content manager"))
+                                    <a href="{{ route('anime.edit', $anime->id)}}" class="text-white font-semibold underline">Editar</a>
+                                    <form action="{{route('anime.destroy', $anime->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirmDelete();">
+                                        @csrf
+                                        @method("DELETE")
+                                        <input type="submit" value="Borrar" class="btn btn-info underline"/>
+                                    </form>
+                                @endunless
                             </div>
                         </div>
                     @endforeach

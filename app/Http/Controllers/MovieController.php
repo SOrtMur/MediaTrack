@@ -63,6 +63,10 @@ class MovieController extends Controller
      */
     public function edit(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+
         $movie = Movie::find($id);
         
         return view('movies', ['header' => "edit", 'movie' => $movie]);
@@ -73,6 +77,11 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'duration' => 'required|integer|min:1',
@@ -100,6 +109,10 @@ class MovieController extends Controller
      */
     public function destroy(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         $movie = Movie::destroy($id);
         
         return redirect()->route('movie.index');

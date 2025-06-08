@@ -63,6 +63,10 @@ class AnimeController extends Controller
      */
     public function edit(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         $anime = Anime::find($id);
         return view('animes', ['header' => "edit", 'anime' => $anime]);
     }
@@ -72,6 +76,10 @@ class AnimeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
@@ -97,6 +105,10 @@ class AnimeController extends Controller
      */
     public function destroy(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         Anime::destroy($id);
         return redirect()->route('anime.index');
     }
