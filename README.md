@@ -1,61 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MediaTrack
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+MediaTrack es una aplicación que permite a los usuarios registrarse y gestionar sus medios favoritos. Los usuarios pueden almacenar información sobre películas, anime, manga y juegos, así como crear y organizar listas de seguimiento personalizadas para cada tipo de contenido.
 
-## About Laravel
+- Registro y autenticación de usuarios.
+- Almacenamiento y gestión de películas, anime, manga y juegos.
+- Creación de listas de seguimiento para organizar tus medios.
+- Interfaz intuitiva y fácil de usar.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+¡Lleva el control de todo lo que ves, lees y juegas con MediaTrack! 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Información básica
 
-## Learning Laravel
+En aplicación existen 3 roles diferentes: admin, gestor de contenido y usuario.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- El admin puede crear, borrar y consultar datos basicos de usuarios, además de poder ver el contenido subido por usuarios. También puede asignar distintos roles.
+- El gestor de contenido se encarga de supervisar el contenido, de forma que si hay algún contenido que no cumple las politicas puede eliminarlo.
+- El usuario, y el resto de roles, puede crear el contenido especificado arriba, entrar y cambiar su información de usuario.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Requisitos
+- Como requisito base se necesita tener instalado docker. Puedes aprender a instalarlo aquí: https://docs.docker.com/engine/install/
+- Debes estar registrado en TMDB para poder usar 2 funcionalidades de la aplicación.
+- Debes tener instalado un gestor de versiones, como git.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Instalación
 
-## Laravel Sponsors
+La instalación se realiza a través de un contenedor Sail, un entorno sobre el que se ejecuta Laravel. Esto junto a docker compose crea el entorno de ejecución de MediaTrack.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Pasos de instalación.
 
-### Premium Partners
+1. Abrir una terminal de git y hacer git clone https://github.com/SOrtMur/MediaTrack.git
+2. En la terminal, acceder al directorio de la aplicación.
+3. Instalar las dependencias usando docker, para eso debemos ejecutar el siguiente comando: 
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
+```
+4. Debes crear el archivo de variables de entorno .env.
+   ```
+    cp .env.example .env
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+5. Levanta los contenedores con Sail usando este comando en la terminal.
+```
+./sail up -d
+```
 
-## Contributing
+6. Una vez instaladas las dependencias, necesitarás generar la clave de la aplicación. Este paso se realiza después de iniciar Sail:
+```
+./sail artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Realiza las migraciones, lo cual hace que se cree toda la base de datos de forma automatica.
+```
+./sail artisan migrate
+```
 
-## Code of Conduct
+Hecho esto, ya puedes utilizar la aplicación accediendo a http://localhost
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Muy importante
 
-## Security Vulnerabilities
+La busqueda en TMDB requiere de una clave de acceso a la API. Debes introducir esta clave en tu fichero .env, junto con la ruta base de la API de esta forma.
+```
+TMDB_API_KEY=*Tu clave*
+TMDB_ENDPOINT=https://api.themoviedb.org/3/
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Al hacer la migración de la base de datos, se crea automáticamente un usuario administrador. Te dejo las credenciales de acceso por defecto.
+```
+email: admin@example.com
+contraseña: password
+```
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Aseguraté de entrar en el perfil y cambiar la contraseña a una más segura.
+**Gracias por descargar la aplicación, espero que te sea util**
