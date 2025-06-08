@@ -34,12 +34,14 @@
                             </div>
                             <div class="flex justify-between mt-2 mb-2 align-end">
                                 <a href="{{ route('movie.show', $movie->id)}}" class="text-white font-semibold underline">Ver detalles</a>
-                                <a href="{{ route('movie.edit', $movie->id)}}" class="text-white font-semibold underline">Editar</a>
-                                <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirmDelete();">
-                                    @csrf
-                                    @method("DELETE")
-                                    <input type="submit" value="Borrar" class="btn btn-info underline"/>
-                                </form>
+                                @unless (!Auth::user()->hasRole('content manager'))    
+                                    <a href="{{ route('movie.edit', $movie->id)}}" class="text-white font-semibold underline">Editar</a>
+                                    <form action="{{route('movie.destroy', $movie->id)}}" method="POST" class="text-white font-semibold" onsubmit="return confirmDelete();">
+                                        @csrf
+                                        @method("DELETE")
+                                        <input type="submit" value="Borrar" class="btn btn-info underline"/>
+                                    </form>
+                                @endunless
                             </div>
                         </div>
                     @endforeach

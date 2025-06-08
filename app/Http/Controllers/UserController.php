@@ -70,6 +70,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->hasRole('content creator')) {
+            return redirect()->route('user.index');
+        }
         $user = User::find($id);
         $users = User::all();
         
@@ -83,7 +86,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        if (Auth::user()->hasRole('content creator')) {
+            return redirect()->route('user.index');
+        }
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -117,6 +123,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Auth::user()->hasRole('content creator')) {
+            return redirect()->route('user.index');
+        }
+        
         User::destroy($id);
         return redirect()->route('user.index');
     }

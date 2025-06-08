@@ -65,6 +65,9 @@ class MangaController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('manga.index');
+        }
         $manga = Manga::find($id);
         
         return view('mangas', ['header' => "edit", 'manga' => $manga]);
@@ -75,6 +78,10 @@ class MangaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('manga.index');
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
@@ -101,6 +108,10 @@ class MangaController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('manga.index');
+        }
+        
         Manga::destroy($id);
         
         return redirect()->route('manga.index');

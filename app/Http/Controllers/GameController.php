@@ -60,6 +60,10 @@ class GameController extends Controller
      */
     public function edit(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+
         $game = Game::find($id);
         return view('games', ['header' => "edit", 'game' => $game]);
     }
@@ -69,6 +73,10 @@ class GameController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
@@ -91,6 +99,10 @@ class GameController extends Controller
      */
     public function destroy(string $id)
     {
+        if(Auth::user()->hasRole('user|admin')) {
+            return redirect()->route('movie.index');
+        }
+        
         Game::destroy($id);
         return redirect()->route('game.index');
     }
