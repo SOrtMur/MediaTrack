@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function mangas(){
-        return $this->belongsToMany(Manga::class, 'mangas_users')->withPivot('read_status', 'read_time', 'added_at');
+        return $this->belongsToMany(Manga::class, 'mangas_users')->withPivot('read_status', 'last_chapter_read', 'added_at', 'last_read_at');
     }
 
     public function games(){
@@ -40,7 +40,7 @@ class User extends Authenticatable
     }
 
     public function animes(){
-        return $this->belongsToMany(Anime::class, 'animes_users')->withPivot('watched_status', 'watched_time', 'added_at');
+        return $this->belongsToMany(Anime::class, 'animes_users')->withPivot('watched_status', 'last_episode_watched', 'last_watched_date', 'added_at');
     }
 
     // Metodo para el middleware, comprobando si el usuario tiene un rol especifico.

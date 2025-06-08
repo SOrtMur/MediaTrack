@@ -23,6 +23,6 @@ class Anime extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'animes_users')->withPivot('watched_status', 'watched_time', 'added_at');
+        return $this->belongsToMany(User::class, 'animes_users')->withPivot('watched_status', 'last_episode_watched','last_watched_date' ,  'added_at');
     }
 }

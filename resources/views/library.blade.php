@@ -9,7 +9,7 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Animes</h2>
                     <p class="text-gray-600 dark:text-gray-400">Gestiona tus animes, añade nuevos, elimina los que no quieras. </p>
-                    <a href="/library/animes" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Animes</a>
+                    <a href="{{route('your_anime.index')}}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Animes</a>
                 </div>
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Juegos</h2>
@@ -19,7 +19,7 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Mangas</h2>
                     <p class="text-gray-600 dark:text-gray-400">Gestiona tus mangas, añade nuevos, elimina los que no quieras.</p>
-                    <a href="/library/mangas" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Mangas</a>
+                    <a href="{{route('your_manga.index')}}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Mangas</a>
                 </div>
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col items-center">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Películas</h2>
