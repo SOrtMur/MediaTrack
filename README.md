@@ -88,7 +88,7 @@ contraseña: password
 Aseguraté de entrar en el perfil y cambiar la contraseña a una más segura.
 
 # Problemas a la hora de instalar.
-- MySQL no se inicia correctamente. Ejecuta los siguientes comandos.
+- MySQL no se inicia correctamente. Da un error al intentar hacer la migración Ejecuta los siguientes comandos.
 1. ./sail down -v
 2. ./sail build --no-cache
 3. ./sail up -d
