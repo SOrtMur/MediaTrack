@@ -44,18 +44,27 @@ docker run --rm \
    ```
     cp .env.example .env
    ```
-
+4. 1. Cambiar la información necesaria en .env con respecto a la base de datos.
+   ``
+    - DB_CONNECTION=mysql
+    - DB_HOST=mysql
+    - DB_PORT=3306
+    - DB_DATABASE=laravel
+    - DB_USERNAME=sail
+    - DB_PASSWORD=password
+   ``
+   
 5. Levanta los contenedores con Sail usando este comando en la terminal.
 ```
 ./sail up -d
 ```
 
-6. Una vez instaladas las dependencias, necesitarás generar la clave de la aplicación. Este paso se realiza después de iniciar Sail:
+1. Una vez instaladas las dependencias, necesitarás generar la clave de la aplicación. Este paso se realiza después de iniciar Sail:
 ```
 ./sail artisan key:generate
 ```
 
-7. Realiza las migraciones, lo cual hace que se cree toda la base de datos de forma automatica.
+1. Realiza las migraciones, lo cual hace que se cree toda la base de datos de forma automatica.
 ```
 ./sail artisan migrate
 ```
