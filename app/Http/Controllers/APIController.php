@@ -4,39 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Routing\Controller;
 
-class DemoController extends Controller
+
+class APIController extends Controller
 {
     /**
-     * Display a demo view.
+     * Handle the TMDB search request.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
-    public function demoIndex()
+    public function TMDBSearch(Request $request)
     {
-        //Recuperar datos de TMDB con query 'ca', solo lee la primera página
-        $resp = Http::get(config('services.tmdb.endpoint'). 'search/movie?query=ca&include_adult=false&language=en-US', [
+        
+
+        //Recuperar datos de TMDB con query
+        $resp = Http::get(config('services.tmdb.endpoint'). 'search/movie', [
                 'api_key' => config('services.tmdb.api'),
-                'query' => 'Jungla de Cristal',
+                'query' => $request->pelicula,
                 'language' => 'es-ES',
                 'include_adult' => false,
-
             ])->collect();
 
         // Asignar los resultados a la variable $movies
         $movies = $resp['results'];
 
-
-
-        return view('demo', compact('movies'));
+        return view('tmdb', ['header' => 'index'], compact('movies'));
     }
+    
     /**
-     * Display a demo view with a specific movie.
+     * Handle the TMDB show request for a specific movie.
      *
      * @param string $id
      * @return \Illuminate\View\View
      */
-    public function demoShow(string $id){
+    public function TMDBShow(string $id){
         // Recuperar datos de TMDB para una película específica
         $resp = Http::get(config('services.tmdb.endpoint') . 'movie/' . $id, [
             'api_key' => config('services.tmdb.api'),
@@ -46,6 +49,6 @@ class DemoController extends Controller
         // Asignar los resultados a la variable $movie
         $movie = $resp;
 
-        return view('demo_show', compact('movie'));
+        return view('tmdb', ['header' => 'show'] , compact('movie'));
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DemoController;
+use App\Http\Controllers\APIController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AnimeController;
@@ -26,6 +26,10 @@ Route::get('/library', function () {
     return view('library');
 });
 
+Route::get('/search', function () {
+    return view('search');
+})->name('search');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,7 +46,8 @@ Route::resource('tu_juego', YourGameController::class)->names('your_game');
 Route::resource('tu_manga', YourMangaController::class)->names('your_manga');
 Route::resource('tu_anime', YourAnimeController::class)->names('your_anime');
 
-Route::get('/demo', [DemoController::class, 'demoIndex'])->name('demo');
-Route::get('/demo/{id}', [DemoController::class, 'demoShow'])->name('demo.show');
+Route::post('tmdb', [APIController::class, 'TMDBSearch'])->name('tmdb.index');
+
+Route::get('tmdb/{id}', [APIController::class, 'TMDBShow'])->name('tmdb.show');
 
 require __DIR__.'/auth.php';

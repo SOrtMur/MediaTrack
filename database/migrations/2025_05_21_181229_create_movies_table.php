@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->string('description')->nullable()->default('No se proporciono una descripción.');
+            $table->text('description')->nullable();
             $table->integer('duration')->unsigned();
             $table->date('release_date');
             $table->decimal('avg_rate', 3, 1)->nullable();

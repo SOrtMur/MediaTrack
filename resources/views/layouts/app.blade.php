@@ -34,7 +34,7 @@
             <footer class="bg-white dark:bg-gray-800 shadow mt-6 static bottom-0 h-10">
                 <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                     <p class="text-center text-gray-500 dark:text-gray-400">
-                        &copy; {{ date('Y') }} {{ config('app.name', 'MediaTracker') }}. All rights reserved.
+                        &copy; {{ date('Y') }} {{ config('app.name', 'MediaTrack') }}. Todos los derechos reservados.
                     </p>
                 </div>
         </div>

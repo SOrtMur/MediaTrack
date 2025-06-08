@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
+                        {{ __('Buscador') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('anime.index')" :active="request()->routeIs('anime.*')">
                         {{ __('Animes') }}
                     </x-nav-link>
@@ -112,6 +115,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('search')" :active="request()->routeIs('search')">
+                    {{ __('Buscador') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('anime.index')" :active="request()->routeIs('anime.*')">
                     {{ __('Animes') }}
