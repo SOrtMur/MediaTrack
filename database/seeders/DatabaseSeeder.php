@@ -200,5 +200,20 @@ class DatabaseSeeder extends Seeder
                 'added_at' => now(),
             ]
         ]);
+        //Seedear los animes del usuario admin (Hay que indexar empezando desde 1 para que coincida con el id del anime).
+        User::find(1)->animes()->attach([
+            1 => [
+                'watched_status' => 'Viendo',
+                'last_episode_watched' => 10,
+                'last_watched_date' => now(),
+                'added_at' => now(),
+            ],
+            2 => [
+                'watched_status' => 'Pendiente',
+                'last_episode_watched' => 0,
+                'last_watched_date' => null,
+                'added_at' => now(),
+            ]
+        ]);
     }
 }
