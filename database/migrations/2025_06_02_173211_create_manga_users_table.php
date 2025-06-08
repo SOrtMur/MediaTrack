@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Manga;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -11,14 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('manga_users', function (Blueprint $table) {
+        Schema::create('mangas_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('manga_id')->constrained('mangas')->nullable()->default(null)->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->nullable()->default(null)->onDelete('cascade');
-            $table->string('manga_title')->nullable()->default(null);
-            $table->date('read_date')->nullable()->default(null);
+            $table->integer('manga_id')->constrained('games')->nullable()->default(null)->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained('users')->onDelete('cascade');
+            $table->date('last_read_at')->nullable()->default(null);
             $table->string('read_status')->default('Pendiente');
             $table->integer('last_chapter_read')->default(0);
+            $table->date('added_at');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manga_users');
+        Schema::dropIfExists('mangas_users');
     }
 };

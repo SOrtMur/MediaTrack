@@ -23,6 +23,6 @@ class Movie extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'movies_users');
+        return $this->belongsToMany(User::class, 'movies_users')->withPivot('watched_status', 'watched_time', 'added_at');
     }
 }

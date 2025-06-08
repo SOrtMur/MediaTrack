@@ -38,7 +38,7 @@
                                 <td class="px-4 py-2 text-center"> {{ $user->role()->where('user_id',$user->id)->first()->description }}</td>
                                 <td class="px-4 py-2 flex gap-4 justify-center">
                                     <a href="{{ route('user.show', $user->id) }}" class="text-blue-500 pt-2">Ver</a>
-                                    <a href="{{ route('user.edit', $user->id) }}" class="text-yellow-500 pt-2">Editar</a>
+                                    <a href="{{ route('user.edit', $user->id) }}" class="text-white pt-2">Editar</a>
                                     <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete();" class="inline">
                                         @csrf
                                         @method('DELETE')

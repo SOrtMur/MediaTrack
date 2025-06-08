@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Movie;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('movies_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movie_id')->constrained('movies')->nullable()->default(null)->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->nullable()->default(null)->onDelete('cascade');
-            $table->string('movie_title')->nullable()->default(null);
-            $table->date('watched_date')->nullable()->default(null);
+            $table->integer('movie_id')->nullable()->default(-1);
+            $table->foreignIdFor(User::class)->constrained('users')->onDelete('cascade');
             $table->string('watched_status')->default('Pendiente');
-            $table->double('watched_time')->default(0);
+            $table->integer('watched_time')->default(0);
+            $table->date('added_at');
             $table->timestamps();
         });
     }
