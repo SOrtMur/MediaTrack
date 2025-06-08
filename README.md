@@ -59,12 +59,12 @@ docker run --rm \
 ./sail up -d
 ```
 
-1. Una vez instaladas las dependencias, necesitarás generar la clave de la aplicación. Este paso se realiza después de iniciar Sail:
+6. Una vez instaladas las dependencias, necesitarás generar la clave de la aplicación. Este paso se realiza después de iniciar Sail:
 ```
 ./sail artisan key:generate
 ```
 
-1. Realiza las migraciones, lo cual hace que se cree toda la base de datos de forma automatica.
+7. Realiza las migraciones, lo cual hace que se cree toda la base de datos de forma automatica.
 ```
 ./sail artisan migrate
 ```
