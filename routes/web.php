@@ -14,6 +14,7 @@ use App\Http\Controllers\YourMangaController;
 use App\Http\Controllers\YourAnimeController;
 
 
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -36,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('usuario', UserController::class)->names('user');
+
+Route::resource('usuario', UserController::class)->names('user')->middleware(['auth', 'role:admin|content manager']);
 Route::resource('pelicula', MovieController::class)->names('movie');
 Route::resource('anime', AnimeController::class)->names('anime');
 Route::resource('manga', MangaController::class)->names('manga');

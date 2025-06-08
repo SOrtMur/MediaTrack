@@ -39,9 +39,11 @@
                     <x-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.*')">
                         {{ __('Peliculas') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
+                    @unless(!Auth::user()->hasRole("admin|content manager"))    
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                    @endunless
                 </div>
             </div>
 
