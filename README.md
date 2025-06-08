@@ -86,4 +86,19 @@ contraseña: password
 ```
 
 Aseguraté de entrar en el perfil y cambiar la contraseña a una más segura.
+
+# Problemas a la hora de instalar.
+- MySQL no se inicia correctamente. Ejecuta los siguientes comandos.
+1. ./sail down -v
+2. ./sail build --no-cache
+3. ./sail up -d
+4. ./sail artisan migrate:fresh --seed
+- No se encuentra Vite en manifest.json. Regeneramos los paquetes de node_modules. Ejecuta los siguientes comandos.
+1. composer clear-cache
+2. composer update --with-all-dependencies
+3. rm -rf node_modules
+4. npm install
+5. npm run build
+
+
 **Gracias por descargar la aplicación, espero que te sea util**
